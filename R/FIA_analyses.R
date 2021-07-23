@@ -3,12 +3,9 @@ library(rFIA)
 library(vegan)
 library(ggrepel)
 
-tree <- read.csv("data/raw/FIA_TreeSummary.csv")
-sp_lookup <- read.csv("data/raw/SPCD_lookup_table.csv") %>% select(SPCD, COMMON_NAME, GENUS, SPECIES)
+tree <- read.csv("data/clean/FIA_tree_data.csv")
 
-tree <- left_join(tree, sp_lookup, by="SPCD") %>% 
-  select(Treatment, PLOT.NUMBER, SPCD, STATUSCD, "DBH_in" = `DIAMETER..inches.`, everything())
-tree$Basal_area <- pi*(tree$DBH_in/2)^2
+head(tree)
 
 # calculate basal area for each sp in each plot
 tree_summary <-  tree %>% 
