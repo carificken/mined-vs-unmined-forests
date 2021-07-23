@@ -4,4 +4,4 @@ The purpose of this repository is to house scripts associated with data cleaning
 
 # Objective
 
-The goal of this project is to evaluate the extent to which reclamation of mine sites to forests restores forest c
+The goal of this project is to evaluate the extent to which reclamation of mine sites to forests restores forest communities that are similar to those found on unmined sites. We are interested in exploring whether composition, diversity, and functional groupings of tree species differ between mined and unmined sites. Future phases of this project may also address the likely impacts to forest regeneration of altered landscape topography associated with mine reclamation.
