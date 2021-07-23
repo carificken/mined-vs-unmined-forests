@@ -2,8 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-<<<<<<< HEAD
 
-=======
-/data
->>>>>>> f8607695679dacc947b4fc07f7c378e7fb107219
+# ignore all files in data folder
+data/
