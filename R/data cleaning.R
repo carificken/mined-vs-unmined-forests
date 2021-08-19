@@ -23,6 +23,7 @@ tree %>% filter(is.na(GENUS))
 
 # 2. add Rebecca's data ####
 reb <- read.csv("data/raw/Rebeccas_tree_data.csv", fileEncoding="UTF-8-BOM") %>%
+  filter(Year!=2019) %>% 
   select("PLOT.NUMBER" = Site.name,
          "GENUS" = Genus,
          "SPECIES" = Specific.Epithet,
@@ -72,4 +73,4 @@ df <- bind_rows(reb, tree) %>%
   select(Data_Source, Treatment, everything()) # re-order columns for clarity
 
 # export full data set
-write.csv(df, "data/clean/full_tree_data.csv", row.names=F)
+# write.csv(df, "data/clean/full_tree_data.csv", row.names=F)
