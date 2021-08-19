@@ -3,7 +3,7 @@ library(rFIA)
 library(vegan)
 library(ggrepel)
 
-tree <- read.csv("data/clean/FIA_tree_data.csv")
+tree <- read.csv("data/clean/full_tree_data.csv")
 
 head(tree)
 
@@ -101,13 +101,13 @@ ggplot(shannon_div, aes(x=Treatment, y=shannon_div, fill=Treatment)) +
 
 # compare size class distributions between mined and unmined
 tree %>% 
-  filter(STATUSCD==1) %>% # live trees only
+  filter(STATUSCD!=2) %>% # live trees only (Reb's have NAs)
   ggplot(., aes(x=DBH_in, fill=Treatment, color=Treatment)) +
   geom_histogram(stat="count", alpha=0.5, position = position_dodge())
 
 # look at size class distributions at each plot
 tree %>% 
-  filter(STATUSCD==1) %>% # live trees only
+  filter(STATUSCD!=2) %>% # live trees only
   ggplot(., aes(x=DBH_in, fill=Treatment, color=Treatment)) +
   geom_histogram(stat="count", alpha=0.5) +
   facet_wrap(~as.factor(PLOT.NUMBER))
@@ -127,16 +127,23 @@ tree %>%
 
 # plot avg num of trees
 tree %>% 
-  filter(STATUSCD==1) %>% # live trees only
+  filter(STATUSCD!=2) %>% # live trees only
   group_by(Treatment, PLOT.NUMBER) %>% 
   summarize(Num_trees = length(STATUSCD),
             Tot_BA = sum(Basal_area)) %>% 
   ggplot(., aes(x=Treatment, y=Num_trees, fill=Treatment)) +
   geom_boxplot()
 
+tmp <- tree %>% 
+  filter(STATUSCD!=2) %>% # live trees only
+  group_by(Treatment, PLOT.NUMBER) %>% 
+  summarize(Num_trees = length(STATUSCD),
+            Tot_BA = sum(Basal_area))
+summary(lm(Num_trees ~ Treatment, data=tmp))
+
 # plot avg total basal area
 tree %>% 
-  filter(STATUSCD==1) %>% # live trees only
+  filter(STATUSCD!=2) %>% # live trees only
   # filter(DBH_in < 25) %>% # remove outlier? doesn't change things much
   group_by(Treatment, PLOT.NUMBER) %>% 
   summarize(Num_trees = length(STATUSCD),
